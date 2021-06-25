@@ -44,7 +44,6 @@ namespace WebCheck
 
             using var c = new HttpClient();
 
-
             while (true)
             {
                 foreach (var url in urls)
@@ -73,7 +72,7 @@ namespace WebCheck
                             }
                         }
 
-                        //above we reported failures, and jumped to another foreach round, if we are here, no failers detected, so we can say success
+                        //above we reported failures, and jumped to another foreach round, if we are here, no failures detected, so we can report success
                         Console.WriteLine($"{DateTime.Now.ToShortTimeString()} OK: {url}");
                     }
                     catch (Exception ex)
@@ -105,7 +104,7 @@ namespace WebCheck
                 }
                 else
                 {
-                    throw new ArgumentException("error parsing urls: " + url);
+                    throw new Exception("error parsing urls: " + url);
                 }
             }
             Console.WriteLine($"{list.Count} urls parsed");
@@ -123,7 +122,7 @@ namespace WebCheck
 
                 foreach (var line in lines)
                 {
-                    var items = line.Split('=');
+                    var items = line.Split('=',2,StringSplitOptions.RemoveEmptyEntries);
                     if (items.Length == 2)
                     {
                         var property = items[0].ToLower();
@@ -156,12 +155,16 @@ namespace WebCheck
                         //if (property == "EmailBody".ToLower())
                         //    options.EmailBody = value;
                     }
+                    else
+                    {
+                        throw new Exception("error parsing options " + line);
+                    }
                 }
                 Console.WriteLine("options parsed");
             }
             else
             {
-                Console.WriteLine("no webcheck.config found, using default options");
+                Console.WriteLine("no webcheck.config found, using default values");
             }
         }
 
