@@ -1,7 +1,7 @@
 Simple ConsoleApp in .net 5 that checks URLs in regular interval and optionally reports failures to file or email. It can also search response for some expected string.
 
-Success is considered HTTP 2xx reposne with expected string in the reponse (if defined).
-<br/>Failure is considered all other HTTP responses like 404, 500 etc. Or any exception from request. Or if the expected string is defined but not found.
+Success is considered HTTP 2xx response containing expected string (if defined).
+<br/>Failure is considered all other HTTP responses like 404, 500 etc. Or any exception thrown. Or if the expected string is defined but not found.
 
 This app has no dependecies other than .net 5 framework. Tested on Ubuntu Server 20.04 and Windows 10.
  
